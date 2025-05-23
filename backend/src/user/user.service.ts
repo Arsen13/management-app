@@ -62,7 +62,7 @@ export class UserService {
   }
 
   async findAll(userId: number) {
-    const users = await this.userRepository.find({
+    return await this.userRepository.find({
       where: { id: Not(userId) },
       select: {
         id: true,
@@ -71,8 +71,6 @@ export class UserService {
         lastName: true,
       },
     });
-
-    return users;
   }
 
   async update(updateUserDto: UpdateUserDto, userId: number) {

@@ -1,10 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Req } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -58,5 +59,46 @@ export class UserService {
 
   async findOne(email: string) {
     return await this.userRepository.findOne({ where: { email } });
+  }
+
+  async findAll(userId: number) {
+    const users = await this.userRepository.find({
+      where: { id: Not(userId) },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+      },
+    });
+
+    return users;
+  }
+
+  async update(updateUserDto: UpdateUserDto, userId: number) {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const { password, ...userData } = user;
+    const updatedInfo = { ...userData, ...updateUserDto };
+
+    return this.userRepository.save({
+      ...userData,
+      ...updatedInfo,
+    });
+  }
+
+  async delete(userId: number) {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new BadRequestException(`User with id: ${userId} not found`);
+    }
+
+    await this.userRepository.delete(userId);
+
+    return { message: 'User was successfully deleted' };
   }
 }

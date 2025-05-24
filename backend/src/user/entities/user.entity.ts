@@ -1,7 +1,9 @@
+import { Project } from 'src/project/entities/project.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -22,6 +24,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @OneToMany(() => Project, (project) => project.user, { onDelete: 'CASCADE' })
+  projects: Project[];
 
   @CreateDateColumn()
   createdAt: Date;

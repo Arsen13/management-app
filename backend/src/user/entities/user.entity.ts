@@ -1,4 +1,5 @@
 import { Project } from 'src/project/entities/project.entity';
+import { Task } from 'src/task/entities/task.entity';
 import {
   Column,
   CreateDateColumn,
@@ -27,6 +28,9 @@ export class User {
 
   @OneToMany(() => Project, (project) => project.user, { onDelete: 'CASCADE' })
   projects: Project[];
+
+  @OneToMany(() => Task, (task) => task.user)
+  tasks: Task[];
 
   @CreateDateColumn()
   createdAt: Date;

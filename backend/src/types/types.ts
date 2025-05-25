@@ -4,3 +4,5 @@ export interface IUser {
   lastName: string;
   email: string;
 }
+
+export type TaskStatusT = 'todo' | 'in_progress' | 'done';

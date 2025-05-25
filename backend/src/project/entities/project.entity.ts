@@ -1,3 +1,4 @@
+import { Task } from 'src/task/entities/task.entity';
 import { User } from 'src/user/entities/user.entity';
 import {
   Column,
@@ -5,6 +6,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -23,6 +25,9 @@ export class Project {
   @ManyToOne(() => User, (user) => user.projects)
   @JoinColumn({ name: 'ownerId' })
   user: User;
+
+  @OneToMany(() => Task, (task) => task.project, { onDelete: 'CASCADE' })
+  tasks: Task[];
 
   @CreateDateColumn()
   createdAt: Date;

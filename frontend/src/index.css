@@ -2,6 +2,8 @@
 
 @theme {
   --bg-color: #131517;
+  --widjet: #1e1f25;
+  --text-gray: #898999;
 }
 
 body {

@@ -1,6 +1,9 @@
+import { Link, useLocation } from "react-router-dom";
 import UserInfo from "./UserInfo";
 
 export default function Navbar() {
+  const location = useLocation();
+
   return (
     <div className="bg-[var(--widjet)] h-16 flex justify-between items-center px-12 border-b border-b-gray-500 shadow-sm shadow-gray-500">
       <div>
@@ -10,9 +13,11 @@ export default function Navbar() {
       </div>
 
       <div className="flex gap-14 text-xl">
-        {/* <Link href='/' className="hover:text-sky-500 duration-300">Dashboard</Link>
-                <Link href='/transactions' className="hover:text-sky-500 duration-300">Transactions</Link>
-                <Link href='/categories' className="hover:text-sky-500 duration-300">Categories</Link> */}
+        {location.pathname !== "/" && (
+          <Link to="/" className="hover:text-sky-500 duration-300">
+            Home
+          </Link>
+        )}
       </div>
 
       <UserInfo />

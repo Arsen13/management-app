@@ -44,9 +44,18 @@ export class TaskService {
   }
 
   async findAll(projectId: number) {
-    const result = await this.taskRepository.find({
-      where: { project: { id: projectId } },
-    });
+    // const result = await this.taskRepository.find({
+    //   where: { project: { id: projectId } },
+    // });
+
+    const result = await this.taskRepository
+      .createQueryBuilder('task')
+      .leftJoin('task.user', 'user')
+      .addSelect(['user.id', 'user.firstName', 'user.lastName'])
+      .leftJoin('task.project', 'project')
+      .addSelect(['project.id'])
+      .where('project.id = :projectId', { projectId })
+      .getMany();
 
     const groupedTasks: groupedTaskT = {
       todo: [],

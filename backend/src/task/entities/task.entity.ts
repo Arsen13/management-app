@@ -3,10 +3,12 @@ import { TaskStatusT } from 'src/types/types';
 import { User } from 'src/user/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -30,4 +32,10 @@ export class Task {
 
   @Column()
   status: TaskStatusT;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

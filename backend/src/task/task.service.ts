@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './entities/task.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { TaskStatusT } from 'src/types/types';
+import { groupedTaskT, TaskStatusT } from 'src/types/types';
 import { ChangeStatusDto } from './dto/change-status.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 
@@ -43,8 +43,24 @@ export class TaskService {
     return await this.taskRepository.save(newTask);
   }
 
-  async findAll() {
-    return await this.taskRepository.find();
+  async findAll(projectId: number) {
+    const result = await this.taskRepository.find({
+      where: { project: { id: projectId } },
+    });
+
+    const groupedTasks: groupedTaskT = {
+      todo: [],
+      in_progress: [],
+      done: [],
+    };
+
+    result.forEach((task) => {
+      if (task.status == 'todo') groupedTasks.todo.push(task);
+      if (task.status == 'in_progress') groupedTasks.in_progress.push(task);
+      if (task.status == 'done') groupedTasks.done.push(task);
+    });
+
+    return groupedTasks;
   }
 
   async assignUser(taskId: number, userId: number, assignedUserId: number) {

@@ -32,9 +32,9 @@ export class TaskController {
     return this.taskService.create(createTaskDto, +projectId);
   }
 
-  @Get()
-  findAll() {
-    return this.taskService.findAll();
+  @Get(':projectId')
+  findAll(@Param('projectId') projectId: string) {
+    return this.taskService.findAll(+projectId);
   }
 
   @Patch('assign/:taskId')

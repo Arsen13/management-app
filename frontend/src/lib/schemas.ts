@@ -18,7 +18,7 @@ export const SignUpSchema = z
     path: ["confirmPassword"],
   });
 
-export const CreateSchema = z.object({
+export const CreateUpdateSchema = z.object({
   title: z.string().min(3),
   description: z.string().min(3),
 });

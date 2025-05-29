@@ -1,19 +1,19 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
-import { type CreateModalFields } from "../../lib/types";
+import { type CreateUpdateModalFields } from "../../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateSchema } from "../../lib/schemas";
+import { CreateUpdateSchema } from "../../lib/schemas";
 
 export default function CreateProjectModal() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<CreateModalFields>({
-    resolver: zodResolver(CreateSchema),
+  } = useForm<CreateUpdateModalFields>({
+    resolver: zodResolver(CreateUpdateSchema),
   });
 
-  const onSubmit: SubmitHandler<CreateModalFields> = async (data) => {
+  const onSubmit: SubmitHandler<CreateUpdateModalFields> = async (data) => {
     console.log(data);
   };
 

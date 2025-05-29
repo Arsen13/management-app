@@ -1,6 +1,6 @@
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import { z } from "zod";
-import type { CreateSchema, LoginSchema, SignUpSchema } from "./schemas";
+import type { CreateUpdateSchema, LoginSchema, SignUpSchema } from "./schemas";
 
 export interface InputFieldProps<T extends FieldValues> {
   type: string;
@@ -35,4 +35,4 @@ export type TaskT = {
   updatedAt: string;
 };
 
-export type CreateModalFields = z.infer<typeof CreateSchema>;
+export type CreateUpdateModalFields = z.infer<typeof CreateUpdateSchema>;

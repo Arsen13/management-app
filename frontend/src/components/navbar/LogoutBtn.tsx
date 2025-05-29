@@ -1,5 +1,5 @@
 import { CiLogout } from "react-icons/ci";
-import { removeToken } from "../../lib/localStorage.helper";
+import { removeItem } from "../../lib/localStorage.helper";
 import { useNavigate } from "react-router-dom";
 
 export default function LogoutBtn() {
@@ -7,7 +7,7 @@ export default function LogoutBtn() {
   return (
     <CiLogout
       onClick={() => {
-        removeToken("token");
+        removeItem("token");
         navigate("/login");
       }}
       className="w-8 h-8 hover:text-red-500 text-white duration-300 cursor-pointer"

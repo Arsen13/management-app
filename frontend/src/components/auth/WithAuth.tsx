@@ -1,6 +1,6 @@
 import type React from "react";
 import { useEffect, useState } from "react";
-import { getToken, removeToken } from "../../lib/localStorage.helper";
+import { getItem, removeItem } from "../../lib/localStorage.helper";
 import Preloader from "./Preloader";
 import { useNavigate } from "react-router-dom";
 
@@ -15,12 +15,12 @@ export default function WithAuth({ children }: Props) {
 
   useEffect(() => {
     const checkAuth = () => {
-      const token = getToken();
+      const token = getItem("token");
 
       if (token && token !== "") {
         setIsAuthenticated(true);
       } else {
-        removeToken("token");
+        removeItem("token");
         navigate("/login");
       }
 

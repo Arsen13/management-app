@@ -34,3 +34,20 @@ export const SignUpSchema = z
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });
+
+export type TaskT = {
+  id: number;
+  title: string;
+  description: string;
+  project: {
+    id: number;
+  };
+  user: {
+    id: number;
+    firstName: string;
+    lastName: string;
+  } | null;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+};

@@ -1,4 +1,4 @@
-import Projects from "../components/home/Projects";
+import ProjectList from "../components/home/ProjectList";
 import Navbar from "../components/navbar/Navbar";
 
 function Home() {
@@ -7,7 +7,7 @@ function Home() {
       <Navbar />
       <div className="mt-10 flex flex-col justify-center gap-7">
         <h1 className="text-center text-4xl">Projects</h1>
-        <Projects />
+        <ProjectList />
       </div>
     </div>
   );

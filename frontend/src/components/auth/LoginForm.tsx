@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthButton from "./AuthButton";
 import InputField from "./InputField";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { type LoginFormField } from "../../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "../../lib/schemas";
+import { login } from "../../api/auth";
+import { useUser } from "../../context/UserContext";
 
 export default function LoginForm() {
+  const navigate = useNavigate();
+  const { setUser } = useUser();
+
   const {
     register,
     handleSubmit,
@@ -16,10 +21,11 @@ export default function LoginForm() {
   });
 
   const onSubmit: SubmitHandler<LoginFormField> = async (data) => {
-    try {
-      console.log(data);
-    } catch (error) {
-      console.log(error);
+    const result = await login(data);
+
+    if (result) {
+      setUser(result);
+      navigate("/");
     }
   };
 

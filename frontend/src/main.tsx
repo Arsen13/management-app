@@ -7,11 +7,18 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import SignUp from "./pages/SignUp";
 import Project from "./pages/Project";
+import WithAuth from "./components/auth/WithAuth";
+import { Toaster } from "react-hot-toast";
+import { UserProvider } from "./context/UserContext";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <WithAuth>
+        <Home />,
+      </WithAuth>
+    ),
     errorElement: <NotFound />,
   },
   {
@@ -24,12 +31,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/project/:projectId",
-    element: <Project />,
+    element: (
+      <WithAuth>
+        <Project />
+      </WithAuth>
+    ),
   },
 ]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <UserProvider>
+      <RouterProvider router={router} />
+      <Toaster position="top-right" reverseOrder={false} />
+    </UserProvider>
   </StrictMode>
 );

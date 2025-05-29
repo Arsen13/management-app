@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import AuthButton from "./AuthButton";
 import InputField from "./InputField";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { SignUpSchema, type SignUpFormField } from "../../lib/types";
+import { type SignUpFormField } from "../../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SignUpSchema } from "../../lib/schemas";
 
 export default function SignUpForm() {
   const {

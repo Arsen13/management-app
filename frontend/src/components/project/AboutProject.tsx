@@ -1,4 +1,4 @@
-import { IoIosAddCircle } from "react-icons/io";
+import { MdAddBox } from "react-icons/md";
 
 export default function AboutProject() {
   return (
@@ -6,7 +6,7 @@ export default function AboutProject() {
       <h2 className="text-2xl">Title</h2>
       <p className="italic">Owner: John Doe</p>
       <div className="flex flex-col items-center">
-        <IoIosAddCircle className="w-8 h-8 text-sky-500 cursor-pointer hover:text-sky-800 duration-500" />
+        <MdAddBox className="w-8 h-8 cursor-pointer hover:text-sky-500 duration-500" />
         <p className="text-sm italic">New Task</p>
       </div>
     </div>

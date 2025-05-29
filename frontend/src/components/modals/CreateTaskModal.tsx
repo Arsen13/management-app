@@ -4,7 +4,7 @@ import { type CreateModalFields } from "../../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateSchema } from "../../lib/schemas";
 
-export default function CreateProjectModal() {
+export default function CreateTaskModal() {
   const {
     register,
     handleSubmit,
@@ -21,7 +21,7 @@ export default function CreateProjectModal() {
     <div className="fixed inset-0 flex h-full w-full bg-[var(--widjet)]/90 items-center justify-center overflow-y-auto">
       <div className="relative w-96 rounded-md p-8 shadow-2xl bg-[var(--widjet)]">
         <div className="text-center">
-          <h3 className="text-2xl font-bold">Create a Project</h3>
+          <h3 className="text-2xl font-bold">Create a Task</h3>
           <div className="mt-2 px-7 py-3">
             <form
               onSubmit={handleSubmit(onSubmit)}

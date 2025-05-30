@@ -8,6 +8,7 @@ export default function LogoutBtn() {
     <CiLogout
       onClick={() => {
         removeItem("token");
+        removeItem("user");
         navigate("/login");
       }}
       className="w-8 h-8 hover:text-red-500 text-white duration-300 cursor-pointer"

@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthButton from "./AuthButton";
 import InputField from "./InputField";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { type SignUpFormField } from "../../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSchema } from "../../lib/schemas";
+import { signUp } from "../../api/auth";
+import { useUser } from "../../context/UserContext";
 
 export default function SignUpForm() {
+  const navigate = useNavigate();
+  const { setUser } = useUser();
+
   const {
     register,
     handleSubmit,
@@ -16,10 +21,11 @@ export default function SignUpForm() {
   });
 
   const onSubmit: SubmitHandler<SignUpFormField> = async (data) => {
-    try {
-      console.log(data);
-    } catch (error) {
-      console.log(error);
+    const result = await signUp(data);
+
+    if (result) {
+      setUser(result);
+      navigate("/");
     }
   };
 

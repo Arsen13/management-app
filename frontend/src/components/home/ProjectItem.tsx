@@ -1,18 +1,19 @@
 import { MdDelete } from "react-icons/md";
 import { RxUpdate } from "react-icons/rx";
 import { Link } from "react-router-dom";
+import type { ProjectT } from "../../lib/types";
 
-export default function ProjectItem() {
+export default function ProjectItem({ project }: { project: ProjectT }) {
   return (
     <div className="w-md h-50 flex flex-col bg-[var(--widjet)] gap-2.5 rounded-2xl">
-      <h2 className="text-center text-3xl mt-1">Title</h2>
+      <h2 className="text-center text-3xl mt-1">{project.title}</h2>
       <p className="h-2/4 mx-4 italic text-[var(--text-gray)]">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer.
+        {project.title}
       </p>
       <div className="flex justify-between mr-4">
-        <p className="ml-4 italic text-[var(--text-gray)]">21/05/25</p>
+        <p className="ml-4 italic text-[var(--text-gray)]">
+          {project.createdAt.split("T")[0].split("-").reverse().join("/")}
+        </p>
         <Link to={`/project/1`} className="hover:underline">
           Details
         </Link>

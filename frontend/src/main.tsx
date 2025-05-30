@@ -10,6 +10,7 @@ import Project from "./pages/Project";
 import WithAuth from "./components/auth/WithAuth";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "./context/UserContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
@@ -39,11 +40,15 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <UserProvider>
-      <RouterProvider router={router} />
-      <Toaster position="top-right" reverseOrder={false} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <Toaster position="top-right" reverseOrder={false} />
+      </QueryClientProvider>
     </UserProvider>
   </StrictMode>
 );

@@ -36,3 +36,11 @@ export type TaskT = {
 };
 
 export type CreateUpdateModalFields = z.infer<typeof CreateUpdateSchema>;
+
+export type ProjectT = {
+  id: number;
+  title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+};

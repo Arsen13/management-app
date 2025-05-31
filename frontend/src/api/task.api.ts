@@ -2,9 +2,9 @@ import { AxiosError } from "axios";
 import { axiosInstance } from "./axios";
 import toast from "react-hot-toast";
 
-export async function getProjects() {
+export async function getTasks(taskId: string) {
   try {
-    const response = await axiosInstance.get("project");
+    const response = await axiosInstance.get(`/task/${taskId}`);
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -13,9 +13,4 @@ export async function getProjects() {
       console.error(error);
     }
   }
-}
-
-export async function deleteProject(projectId: number) {
-  const response = await axiosInstance.delete(`/project/${projectId}`);
-  return response.data;
 }

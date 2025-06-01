@@ -1,7 +1,12 @@
 import { AxiosError } from "axios";
 import { axiosInstance } from "./axios";
 import toast from "react-hot-toast";
-import type { ChangeStatusT, CreateTaskT, UpdateTaskT } from "../lib/types";
+import type {
+  ChangeStatusT,
+  CreateTaskT,
+  DeleteTaskT,
+  UpdateTaskT,
+} from "../lib/types";
 
 export async function getTasks(taskId: string) {
   try {
@@ -36,4 +41,10 @@ export async function changeStatus(data: ChangeStatusT) {
   });
 
   return response.data;
+}
+
+export async function deleteTask(data: DeleteTaskT) {
+  const { taskId, projectId } = data;
+  const response = await axiosInstance.delete(`/task/${taskId}`);
+  return { projectId, ...response.data };
 }

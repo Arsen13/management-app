@@ -101,3 +101,8 @@ export type UpdateTaskModalProps = {
 };
 
 export type UpdateTaskT = Pick<TaskT, "id" | "title" | "description">;
+
+export type DeleteTaskT = {
+  taskId: number;
+  projectId: number;
+};

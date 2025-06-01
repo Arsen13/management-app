@@ -22,7 +22,7 @@ export default function ProjectItem({ project }: { project: ProjectT }) {
       <div className="w-md h-50 flex flex-col bg-[var(--widjet)] gap-2.5 rounded-2xl">
         <h2 className="text-center text-3xl mt-1">{project.title}</h2>
         <p className="h-2/4 mx-4 italic text-[var(--text-gray)]">
-          {project.description}
+          {project.description.slice(0, 190)}
         </p>
         <div className="flex justify-between mr-4">
           <p className="ml-4 italic text-[var(--text-gray)]">

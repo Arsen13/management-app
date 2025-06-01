@@ -6,7 +6,6 @@ import type { TaskT } from "../../lib/types";
 
 export default function Tasks() {
   const { projectId: id } = useParams();
-  console.log("id", id);
 
   const { data, isError } = useQuery({
     queryKey: ["tasks", id],

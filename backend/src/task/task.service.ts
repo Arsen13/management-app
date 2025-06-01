@@ -44,10 +44,6 @@ export class TaskService {
   }
 
   async findAll(projectId: number) {
-    // const result = await this.taskRepository.find({
-    //   where: { project: { id: projectId } },
-    // });
-
     const result = await this.taskRepository
       .createQueryBuilder('task')
       .leftJoin('task.user', 'user')
@@ -99,14 +95,15 @@ export class TaskService {
     userId: number,
     changeStatusDto: ChangeStatusDto,
   ) {
-    const task = await this.taskRepository.findOne({
-      where: {
-        id: taskId,
-        user: {
-          id: userId,
-        },
-      },
-    });
+    const task = await this.taskRepository
+      .createQueryBuilder('task')
+      .leftJoin('task.project', 'project')
+      .addSelect(['project.id'])
+      .leftJoin('task.user', 'user')
+      .addSelect(['user.id'])
+      .where('user.id = :userId', { userId })
+      .andWhere('task.id = :taskId', { taskId })
+      .getOne();
 
     if (!task) {
       throw new NotFoundException('Task not found');

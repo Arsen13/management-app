@@ -108,12 +108,6 @@ export class TaskService {
       throw new NotFoundException('Task not found');
     }
 
-    if (task.user.id !== userId) {
-      throw new BadRequestException(
-        'Only project owner can change status of task',
-      );
-    }
-
     return await this.taskRepository.save(Object.assign(task, changeStatusDto));
   }
 

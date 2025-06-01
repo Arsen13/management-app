@@ -15,7 +15,7 @@ export default function Task({ task }: { task: TaskT }) {
       <p className="text-sm italic text-[var(--text-gray)]">
         {task.createdAt.split("T")[0].split("-").reverse().join("/")}
       </p>
-      <TaskButtons />
+      <TaskButtons task={task} />
     </div>
   );
 }

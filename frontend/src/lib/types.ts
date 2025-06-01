@@ -72,3 +72,24 @@ export type CreateTaskModalProps = {
 export type AboutProjectProps = {
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+export interface TaskButtonsProps {
+  task: TaskT;
+}
+
+export type ChangeStatusT = {
+  currentStatus: string;
+  taskId: number;
+};
+
+export type ProjectInfoT = {
+  id: number;
+  title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    firstName: string;
+    lastName: string;
+  };
+};

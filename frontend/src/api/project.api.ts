@@ -31,3 +31,16 @@ export async function deleteProject(projectId: number) {
   const response = await axiosInstance.delete(`/project/${projectId}`);
   return response.data;
 }
+
+export async function findOne(projectId: string) {
+  try {
+    const response = await axiosInstance.get(`/project/${projectId}`);
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      toast.error(error.response?.data.message);
+    } else {
+      toast.error("Internal server error");
+    }
+  }
+}

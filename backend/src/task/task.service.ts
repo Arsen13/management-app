@@ -112,11 +112,12 @@ export class TaskService {
   }
 
   async update(taskId: number, updateTaskDto: UpdateTaskDto) {
-    const task = await this.taskRepository.findOne({
-      where: {
-        id: taskId,
-      },
-    });
+    const task = await this.taskRepository
+      .createQueryBuilder('task')
+      .leftJoin('task.project', 'project')
+      .addSelect(['project.id'])
+      .where('task.id = :taskId', { taskId })
+      .getOne();
 
     if (!task) {
       throw new NotFoundException('Task not found');

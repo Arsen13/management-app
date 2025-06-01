@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { axiosInstance } from "./axios";
 import toast from "react-hot-toast";
-import type { ChangeStatusT, CreateTaskT } from "../lib/types";
+import type { ChangeStatusT, CreateTaskT, UpdateTaskT } from "../lib/types";
 
 export async function getTasks(taskId: string) {
   try {
@@ -19,6 +19,12 @@ export async function getTasks(taskId: string) {
 export async function createTask(data: CreateTaskT) {
   const { projectId, ...createData } = data;
   const response = await axiosInstance.post(`/task/${projectId}`, createData);
+  return response.data;
+}
+
+export async function updateTask(data: UpdateTaskT) {
+  const { id: taskId, ...updateData } = data;
+  const response = await axiosInstance.patch(`/task/${taskId}`, updateData);
   return response.data;
 }
 

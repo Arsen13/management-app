@@ -75,6 +75,7 @@ export type AboutProjectProps = {
 
 export interface TaskButtonsProps {
   task: TaskT;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export type ChangeStatusT = {
@@ -93,3 +94,10 @@ export type ProjectInfoT = {
     lastName: string;
   };
 };
+
+export type UpdateTaskModalProps = {
+  task: TaskT;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type UpdateTaskT = Pick<TaskT, "id" | "title" | "description">;

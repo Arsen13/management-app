@@ -1,20 +1,34 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
-import { type CreateUpdateModalFields } from "../../lib/types";
+import {
+  type CreateUpdateModalFields,
+  type UpdateTaskModalProps,
+} from "../../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateUpdateSchema } from "../../lib/schemas";
+import { useUpdateTask } from "../../hooks/mutations/useUpdateTask";
 
-export default function UpdateTaskModal() {
+export default function UpdateTaskModal({
+  setIsModalOpen,
+  task,
+}: UpdateTaskModalProps) {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<CreateUpdateModalFields>({
     resolver: zodResolver(CreateUpdateSchema),
+    defaultValues: {
+      title: task.title,
+      description: task.description,
+    },
   });
 
+  const updateMutation = useUpdateTask();
+
   const onSubmit: SubmitHandler<CreateUpdateModalFields> = async (data) => {
-    console.log(data);
+    updateMutation.mutate({ ...data, id: task.id });
+    setIsModalOpen(false);
   };
 
   return (
@@ -55,7 +69,10 @@ export default function UpdateTaskModal() {
               </button>
             </form>
             <div className="absolute top-2 right-2">
-              <IoClose className="h-6 w-6 cursor-pointer duration-500 hover:text-red-500" />
+              <IoClose
+                onClick={() => setIsModalOpen(false)}
+                className="h-6 w-6 cursor-pointer duration-500 hover:text-red-500"
+              />
             </div>
           </div>
         </div>

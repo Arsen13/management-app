@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import { axiosInstance } from "./axios";
 import toast from "react-hot-toast";
+import type { CreateTaskT } from "../lib/types";
 
 export async function getTasks(taskId: string) {
   try {
@@ -13,4 +14,10 @@ export async function getTasks(taskId: string) {
       console.error(error);
     }
   }
+}
+
+export async function createTask(data: CreateTaskT) {
+  const { projectId, ...createData } = data;
+  const response = await axiosInstance.post(`/task/${projectId}`, createData);
+  return response.data;
 }

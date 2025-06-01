@@ -58,3 +58,17 @@ export type CreateProjectModalProps = Pick<
 >;
 
 export type CreateProjectT = Pick<ProjectT, "title" | "description">;
+
+export type CreateTaskT = {
+  title: string;
+  description: string;
+  projectId: number;
+};
+
+export type CreateTaskModalProps = {
+  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type AboutProjectProps = {
+  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+};

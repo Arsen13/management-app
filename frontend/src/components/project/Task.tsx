@@ -17,7 +17,7 @@ export default function Task({ task }: { task: TaskT }) {
         {task.user ? (
           <p>Assigned user: {`${task.user.firstName} ${task.user.lastName}`}</p>
         ) : (
-          <AssignUser />
+          <AssignUser taskId={task.id} />
         )}
         <p className="text-sm italic text-[var(--text-gray)]">
           {task.createdAt.split("T")[0].split("-").reverse().join("/")}

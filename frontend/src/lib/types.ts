@@ -106,3 +106,15 @@ export type DeleteTaskT = {
   taskId: number;
   projectId: number;
 };
+
+export type UserT = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
+export type AssignUserT = {
+  taskId: number;
+  userId: number;
+};

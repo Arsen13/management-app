@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import { axiosInstance } from "./axios";
 import toast from "react-hot-toast";
 import type {
+  AssignUserT,
   ChangeStatusT,
   CreateTaskT,
   DeleteTaskT,
@@ -40,6 +41,14 @@ export async function changeStatus(data: ChangeStatusT) {
     status,
   });
 
+  return response.data;
+}
+
+export async function assignUser(data: AssignUserT) {
+  const { taskId, userId } = data;
+  const response = await axiosInstance.patch(`/task/assign/${taskId}`, {
+    id: userId,
+  });
   return response.data;
 }
 

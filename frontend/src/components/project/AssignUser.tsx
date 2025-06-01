@@ -1,22 +1,26 @@
-const users = [
-  {
-    id: 1,
-    firstName: "John",
-    lastName: "Doe",
-    email: "johndoe@gmail.com",
-  },
-  {
-    id: 3,
-    firstName: "Jane",
-    lastName: "Doe",
-    email: "janedoe@gmail.com",
-  },
-];
+import { useEffect, useState } from "react";
+import type { UserT } from "../../lib/types";
+import { findUsers } from "../../api/user.api";
+import { useAssignUserToTask } from "../../hooks/mutations/useAssignUserToTask";
 
-export default function AssignUser() {
-  const handleAssign = (id: number) => {
-    console.log(id);
+export default function AssignUser({ taskId }: { taskId: number }) {
+  const [users, setUsers] = useState<UserT[] | null>(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const data = await findUsers();
+      setUsers(data);
+    };
+
+    fetchUsers();
+  }, []);
+
+  const assignUserMutation = useAssignUserToTask();
+
+  const handleAssign = (userId: number) => {
+    assignUserMutation.mutate({ taskId, userId });
   };
+
   return (
     <select
       defaultValue=""
@@ -26,12 +30,13 @@ export default function AssignUser() {
       <option value="" disabled>
         Assign a user
       </option>
-      {users.map((user) => (
-        <option
-          key={user.id}
-          value={user.id}
-        >{`${user.firstName} ${user.lastName}`}</option>
-      ))}
+      {users &&
+        users.map((user) => (
+          <option
+            key={user.id}
+            value={user.id}
+          >{`${user.firstName} ${user.lastName}`}</option>
+        ))}
     </select>
   );
 }

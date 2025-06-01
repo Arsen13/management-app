@@ -36,14 +36,8 @@ export class ProjectService {
     return await this.projectRepository.save(newProject);
   }
 
-  async findAll(userId: number) {
-    return await this.projectRepository.find({
-      where: {
-        user: {
-          id: userId,
-        },
-      },
-    });
+  async findAll() {
+    return await this.projectRepository.find();
   }
 
   async update(

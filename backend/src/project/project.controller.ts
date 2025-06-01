@@ -28,8 +28,8 @@ export class ProjectController {
   }
 
   @Get()
-  findAll(@Req() req) {
-    return this.projectService.findAll(+req.user.id);
+  findAll() {
+    return this.projectService.findAll();
   }
 
   @Put(':id')

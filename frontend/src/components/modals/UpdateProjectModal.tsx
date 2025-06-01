@@ -1,20 +1,34 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
-import { type CreateUpdateModalFields } from "../../lib/types";
+import {
+  type CreateUpdateModalFields,
+  type UpdateProjectModalProps,
+} from "../../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateUpdateSchema } from "../../lib/schemas";
+import { useUpdateProject } from "../../hooks/mutations/useUpdateProject";
 
-export default function UpdateProjectModal() {
+export default function UpdateProjectModal({
+  setIsModalOpen,
+  project,
+}: UpdateProjectModalProps) {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<CreateUpdateModalFields>({
     resolver: zodResolver(CreateUpdateSchema),
+    defaultValues: {
+      title: project.title,
+      description: project.description,
+    },
   });
 
+  const updateMutation = useUpdateProject();
+
   const onSubmit: SubmitHandler<CreateUpdateModalFields> = async (data) => {
-    console.log(data);
+    updateMutation.mutate({ ...data, id: project.id });
+    setIsModalOpen(false);
   };
 
   return (
@@ -55,7 +69,10 @@ export default function UpdateProjectModal() {
               </button>
             </form>
             <div className="absolute top-2 right-2">
-              <IoClose className="h-6 w-6 cursor-pointer duration-500 hover:text-red-500" />
+              <IoClose
+                onClick={() => setIsModalOpen(false)}
+                className="h-6 w-6 cursor-pointer duration-500 hover:text-red-500"
+              />
             </div>
           </div>
         </div>

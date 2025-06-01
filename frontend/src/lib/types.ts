@@ -44,3 +44,10 @@ export type ProjectT = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type UpdateProjectModalProps = {
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  project: ProjectT;
+};
+
+export type UpdateProjectT = Pick<ProjectT, "title" | "description" | "id">;

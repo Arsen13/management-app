@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import { axiosInstance } from "./axios";
 import toast from "react-hot-toast";
+import type { UpdateProjectT } from "../lib/types";
 
 export async function getProjects() {
   try {
@@ -13,6 +14,12 @@ export async function getProjects() {
       console.error(error);
     }
   }
+}
+
+export async function updateProject(data: UpdateProjectT) {
+  const { id, ...updateData } = data;
+  const response = await axiosInstance.put(`/project/${id}`, updateData);
+  return response.data;
 }
 
 export async function deleteProject(projectId: number) {

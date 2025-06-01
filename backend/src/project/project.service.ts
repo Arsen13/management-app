@@ -40,6 +40,15 @@ export class ProjectService {
     return await this.projectRepository.find();
   }
 
+  async findOne(projectId: number) {
+    return await this.projectRepository
+      .createQueryBuilder('project')
+      .leftJoin('project.user', 'user')
+      .addSelect(['user.firstName', 'user.lastName'])
+      .where('project.id = :projectId', { projectId })
+      .getOne();
+  }
+
   async update(
     updateProjectDto: CreateUpdateProjectDto,
     projectId: number,

@@ -32,6 +32,11 @@ export class ProjectController {
     return this.projectService.findAll();
   }
 
+  @Get(':id')
+  findOne(@Param('id') projectId: string) {
+    return this.projectService.findOne(+projectId);
+  }
+
   @Put(':id')
   @UsePipes(new ValidationPipe())
   update(

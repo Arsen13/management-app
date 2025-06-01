@@ -101,12 +101,17 @@ export class TaskService {
       .addSelect(['project.id'])
       .leftJoin('task.user', 'user')
       .addSelect(['user.id'])
-      .where('user.id = :userId', { userId })
-      .andWhere('task.id = :taskId', { taskId })
+      .where('task.id = :taskId', { taskId })
       .getOne();
 
     if (!task) {
       throw new NotFoundException('Task not found');
+    }
+
+    if (task.user.id !== userId) {
+      throw new BadRequestException(
+        'Only project owner can change status of task',
+      );
     }
 
     return await this.taskRepository.save(Object.assign(task, changeStatusDto));

@@ -17,12 +17,20 @@ import { TaskService } from './task.service';
 import { AssignUserDto } from './dto/assign-user.dto';
 import { ChangeStatusDto } from './dto/change-status.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 
 @Controller('task')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
+  @ApiOperation({ summary: 'Used to create a new task' })
+  @ApiCreatedResponse({ description: 'Task created' })
   @Post(':projectId')
   @UsePipes(new ValidationPipe())
   create(
@@ -32,11 +40,15 @@ export class TaskController {
     return this.taskService.create(createTaskDto, +projectId);
   }
 
+  @ApiOperation({ summary: 'Used to get a list of tasks' })
+  @ApiCreatedResponse({ description: 'Tasks found' })
   @Get(':projectId')
   findAll(@Param('projectId') projectId: string) {
     return this.taskService.findAll(+projectId);
   }
 
+  @ApiOperation({ summary: 'Used to assign a user to task' })
+  @ApiCreatedResponse({ description: 'User assigned to task' })
   @Patch('assign/:taskId')
   @UsePipes(new ValidationPipe())
   assignUser(
@@ -51,6 +63,8 @@ export class TaskController {
     );
   }
 
+  @ApiOperation({ summary: 'Used to change a status of task' })
+  @ApiCreatedResponse({ description: 'Status changed' })
   @Patch('status/:taskId')
   @UsePipes(new ValidationPipe())
   changeStatus(
@@ -65,6 +79,8 @@ export class TaskController {
     );
   }
 
+  @ApiOperation({ summary: 'Used to update information about a task' })
+  @ApiCreatedResponse({ description: 'Task updated' })
   @Patch(':taskId')
   @UsePipes(new ValidationPipe())
   update(
@@ -74,6 +90,8 @@ export class TaskController {
     return this.taskService.update(+taskId, updateTaskDto);
   }
 
+  @ApiOperation({ summary: 'Used to delete a task' })
+  @ApiCreatedResponse({ description: 'Task deleted' })
   @Delete(':taskId')
   delete(@Param('taskId') taskId: string) {
     return this.taskService.delete(+taskId);

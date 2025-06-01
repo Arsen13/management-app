@@ -17,6 +17,7 @@ async function bootstrap() {
         'This documentation helps developers interact with the backend endpoints.',
     )
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);

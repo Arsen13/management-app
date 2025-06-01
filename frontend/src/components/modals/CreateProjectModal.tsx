@@ -1,10 +1,16 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
-import { type CreateUpdateModalFields } from "../../lib/types";
+import {
+  type CreateProjectModalProps,
+  type CreateUpdateModalFields,
+} from "../../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateUpdateSchema } from "../../lib/schemas";
+import { useCreateProject } from "../../hooks/mutations/useCreateProject";
 
-export default function CreateProjectModal() {
+export default function CreateProjectModal({
+  setIsModalOpen,
+}: CreateProjectModalProps) {
   const {
     register,
     handleSubmit,
@@ -13,8 +19,11 @@ export default function CreateProjectModal() {
     resolver: zodResolver(CreateUpdateSchema),
   });
 
+  const createMutation = useCreateProject();
+
   const onSubmit: SubmitHandler<CreateUpdateModalFields> = async (data) => {
-    console.log(data);
+    createMutation.mutate(data);
+    setIsModalOpen(false);
   };
 
   return (
@@ -55,7 +64,10 @@ export default function CreateProjectModal() {
               </button>
             </form>
             <div className="absolute top-2 right-2">
-              <IoClose className="h-6 w-6 cursor-pointer duration-500 hover:text-red-500" />
+              <IoClose
+                onClick={() => setIsModalOpen(false)}
+                className="h-6 w-6 cursor-pointer duration-500 hover:text-red-500"
+              />
             </div>
           </div>
         </div>

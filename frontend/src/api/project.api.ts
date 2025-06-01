@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { axiosInstance } from "./axios";
 import toast from "react-hot-toast";
-import type { UpdateProjectT } from "../lib/types";
+import type { CreateProjectT, UpdateProjectT } from "../lib/types";
 
 export async function getProjects() {
   try {
@@ -14,6 +14,11 @@ export async function getProjects() {
       console.error(error);
     }
   }
+}
+
+export async function createProject(data: CreateProjectT) {
+  const response = await axiosInstance.post("project", data);
+  return response.data;
 }
 
 export async function updateProject(data: UpdateProjectT) {

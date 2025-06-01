@@ -51,3 +51,10 @@ export type UpdateProjectModalProps = {
 };
 
 export type UpdateProjectT = Pick<ProjectT, "title" | "description" | "id">;
+
+export type CreateProjectModalProps = Pick<
+  UpdateProjectModalProps,
+  "setIsModalOpen"
+>;
+
+export type CreateProjectT = Pick<ProjectT, "title" | "description">;

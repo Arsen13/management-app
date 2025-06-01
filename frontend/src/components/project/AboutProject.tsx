@@ -17,8 +17,6 @@ export default function AboutProject({ setIsOpenModal }: AboutProjectProps) {
     fetchProject();
   }, []);
 
-  console.log(projectInfo);
-
   return (
     <div className="w-full h-10 px-10 items-center flex justify-between">
       <h2 className="text-2xl">{projectInfo?.title}</h2>

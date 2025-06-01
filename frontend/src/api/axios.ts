@@ -3,7 +3,17 @@ import { getItem } from "../lib/localStorage.helper";
 
 export const axiosInstance = axios.create({
   baseURL: "http://localhost:4200/api",
-  headers: {
-    Authorization: `Bearer ${getItem("token")}` || "",
-  },
 });
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);

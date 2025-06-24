@@ -1,4 +1,4 @@
-# Mini Project Management App
+# Mini Management App
 
 This is an Mini Management App. The application allows you to create users, manage projects and tasks, assign tasks to users, and explore their status.
 
@@ -8,6 +8,7 @@ This is an Mini Management App. The application allows you to create users, mana
 - TypeORM
 - PostgreSQL
 - class-validator
+  
 ### Frontend
 - React
 - TanStack Query
